@@ -1,0 +1,13 @@
+.run/
+.idea/
+node_modules/
+/test-results/
+/playwright-report/
+/playwright/.cache/
+/html-report/
+/monocart-report/
+/allure-results/
+/allure-report/
+/tmp
+.auth/
+.env

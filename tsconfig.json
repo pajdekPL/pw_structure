@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "esModuleInterop": true,
+    "paths": {
+      "@fixtures/*": ["src/fixtures/*"],
+      "@expects/*": ["src/expects/*"],
+      "@pages/*": ["src/pages/*"],
+      "@models/*": ["src/models/*"],
+      "@utilities/*": ["src/utilities/*"],
+      "@components/*": ["src/components/*"],
+      "@data/*": ["src/data/*"],
+      "@api/*": ["src/api/*"],
+      "@views/*": ["src/views/*"],
+      "@factories/*": ["src/factories/*"]
+    }
+  }
+}
