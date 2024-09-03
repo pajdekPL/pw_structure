@@ -25,6 +25,12 @@ jobs:
         run: npx playwright install --with-deps chromium
       - name: Run API and E2E tests
         run: npm run test
+        env:
+          USERNAME: ${{secrets.USERNAME}}
+          PASSWORD: ${{secrets.PASSWORD}}
+          BASE_URL: ${{vars.BASE_URL}}
+          BASE_API_URL: ${{vars.BASE_API_URL}}
+
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:
