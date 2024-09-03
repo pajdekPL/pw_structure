@@ -6,7 +6,7 @@ This framework includes:
 
 - the production ready project structure,
 - solution for unit testing of code that is used to automate checks(for example it's much easier to use UTs when developing some parsing mechanism),
-- debugging of API tests that is easy to turn on by env flag,
+- debugging of API calls that is easy to turn on by the env variable, just set the env `DEBUG=axios` in your .env file
 - POM(Page Object Model),
 - Custom fixtures and expects that can be easily extended,
 - BasePage with waitForPage that waits for the given anchorElement, it can be overloaded, for example if in some pages it's required to wait for some API response etc.,
