@@ -99,6 +99,18 @@ Generated API Clients are under this path: `src/api/api-generated-clients/`
 - update the proper generated-api-client file `src/api/api-generated-clients/{APP}-api-client.ts` with the newly created one
 - verify if tests or the classes that uses the generated client doesn't require any updates
 
+## Snapshots update for CI(requires Docker)
+
+If locally tests are executed on the different OS than linux it is required to update or generate new snapshots on Linux for the CI execution, for example using the official PW docker image. If your tests that use snapshots have the tag @SNAP you can use following steps:
+
+```
+docker run --rm --network host -v $(pwd):/work/ -w /work/ -it mcr.microsoft.com/playwright:v1.46.0-jammy /bin/bash
+npm install
+npx playwright test --grep @SNAP --update-snapshots
+```
+
+Then commit and push the newly created files to the repository.
+
 ## Contribution
 
 Create your branch, make your changes, commit them and push it to the remote and start a new PullRequest.
