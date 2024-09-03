@@ -5,8 +5,8 @@ on:
     branches: [main]
 
 jobs:
-  tests:
-    name: Linter, unit tests and PW tests
+  linter-uts:
+    name: Static analysis and unit tests and PW tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -21,6 +21,10 @@ jobs:
         run: npm run format:check
       - name: Run Unit Tests
         run: npm run ut
+  pw-tests:
+    name: Static analysis and unit tests and PW tests
+    runs-on: ubuntu-latest
+    steps:
       - name: Install PW browser
         run: npx playwright install --with-deps chromium
       - name: Run API and E2E tests
