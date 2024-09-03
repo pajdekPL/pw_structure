@@ -20,7 +20,7 @@ export const test = base.extend<UsersFixtures>({
   roomsAuthenticatedApiClient: async ({}, use) => {
     const user = buildUserFromEnvVariables();
     const token = await loginUserAndGetToken(user);
-    const roomsApiClient = createRoomsApiClient(token);
+    const roomsApiClient = createRoomsApiClient("", `token=${token}`);
     use(roomsApiClient);
   },
   roomsApiClient: async ({}, use) => {

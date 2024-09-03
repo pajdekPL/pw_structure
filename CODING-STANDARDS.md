@@ -11,6 +11,21 @@ This guide serves as a reference for the development team, outlining the best pr
 
 If your project requires some predefined data that should exist before test are being executed keep them up to date in some place, if this place differs than testing repo add the link to those pre-requirements in readme file of this repo.
 
+## Use test annotations to mark failing tests
+
+```typescript
+  test(
+    "Authorized user can delete existing room",
+    {
+      annotation: {
+        type: "reported bug",
+        description: "server returns 500 for non existed rooms - LINK",
+      },
+    } ...
+```
+
+![Report example](annotation_example.png)
+
 ## Model Names
 
 - Model names should be written in PascalCase.
