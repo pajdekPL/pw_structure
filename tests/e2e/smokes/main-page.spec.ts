@@ -1,7 +1,7 @@
 import { MainPage } from "@pages/main.page";
 import { expect, test } from "@playwright/test";
 
-test("Enter main page, check top bar and navigate to mini apps section @SMOKE", async ({
+test("Enter main page, check top bar and navigate to mini apps section @SMOKE @SNAP", async ({
   page,
 }) => {
   const mainPage = new MainPage(page);
