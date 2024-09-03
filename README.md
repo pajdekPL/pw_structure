@@ -101,7 +101,7 @@ Generated API Clients are under this path: `src/api/api-generated-clients/`
 
 ## Snapshots update for CI(requires Docker)
 
-If locally tests are executed on the different OS than linux it is required to update or generate new snapshots on Linux for the CI execution, for example using the official PW docker image. If your tests that use snapshots have the tag @SNAP you can use following steps:
+If tests are locally executed on the different OS than linux it is required to update or generate new snapshots on Linux for the CI execution. The official PW docker image can be used. If your tests that use snapshots have the tag @SNAP you can use following steps:
 
 ```
 docker run --rm --network host -v $(pwd):/work/ -w /work/ -it mcr.microsoft.com/playwright:v1.46.0-jammy /bin/bash
@@ -109,7 +109,7 @@ npm install
 npx playwright test --grep @SNAP --update-snapshots
 ```
 
-Then commit and push the newly created files to the repository.
+Then commit and push the newly created files to the repository. Keep in mind to keep the PW version aligned with that used in package.json.
 
 ## Contribution
 
