@@ -1,8 +1,10 @@
+import { TopBarComponent } from "@components/top-bar.component";
 import { BasePage } from "@pages/base.page";
 import { Locator, Page } from "@playwright/test";
 
 export class MainPage extends BasePage {
   url = "/";
+  topBar = new TopBarComponent(this.page);
   anchorElement: Locator = this.page.getByRole("heading", {
     name: "🧠 What is the idea behind",
   });
