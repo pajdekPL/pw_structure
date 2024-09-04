@@ -27,6 +27,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
+      - name: Install dependencies
+        run: npm ci
       - name: Install PW browser
         run: npx playwright install --with-deps chromium
       - name: Run API and E2E tests
@@ -36,7 +38,6 @@ jobs:
           PASSWORD: ${{secrets.PASSWORD}}
           BASE_URL: ${{vars.BASE_URL}}
           BASE_API_URL: ${{vars.BASE_API_URL}}
-
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:
