@@ -1,19 +1,19 @@
 # pw-framework-structure
 
-It's a structure for the framework based on PlayWright and TypeScript that can be reused for creating E2E and API integration automated checks.
+This is a framework structure based on Playwright and TypeScript that can be reused for creating E2E and API integration automated checks.
 
 This framework includes:
 
-- the production ready project structure,
-- solution for unit testing of code that is used to automate checks(for example it's much easier to use UTs when developing some parsing mechanism),
-- debugging of API calls that is easy to turn on by the env variable, just set the env `DEBUG=axios` in your .env file
-- POM(Page Object Model),
-- Custom fixtures and expects that can be easily extended,
-- BasePage with waitForPage that waits for the given anchorElement, it can be overloaded, for example if in some pages it's required to wait for some API response etc.,
-- Linter, VSCode, Husky configuration that was tested in real projects,
-- Env variables mechanism,
-- tsconfig.json with easy to use imports paths - `import { buildUserFromEnvVariables } from "@factories/auth-user.factory"`
-- Creating storageStates in setup with checking the file age for local executions :)
+- A production-ready project structure.
+- Implementation of the Page Object Model (POM).
+- Custom fixtures and expectations that can be easily extended.
+- Easy-to-enable debugging of API calls by setting the `DEBUG=axios` environment variable in your .env file.
+- Linter, VSCode, and Husky configurations that have been tested in real projects.
+- An environment variables mechanism.
+- A tsconfig.json file with easy-to-use import paths, e.g., `import { buildUserFromEnvVariables } from "@factories/auth-user.factory"`.
+- A solution for unit testing code used in automating checks (making it much easier to use unit tests when developing helper functions, parsers, etc.).
+- A BasePage class with a waitForPage method that waits for a given anchorElement; this method can be overloaded to wait for other conditions, such as API responses, on specific pages.
+- Setup for creating storageStates with authentication file age checks for local executions.
 
 # Utilized resources:
 
@@ -26,31 +26,32 @@ This framework includes:
 - [auth](https://automationintesting.online/auth/swagger-ui/index.html#/)
 - [rooms](https://automationintesting.online/room/swagger-ui/index.html#/room-controller/)
 
-## Framework Structurs
+## Framework Structure
 
 - src
-  - pages - objects that abstract pages with URLs
-  - views - if the given page is complicated and different actions provide to views that differ from each other it is good to abstract/encapsulate them to the View objects
-  - models - interfaces and types that are used as inputs/outputs in testing for example `AuthUserModel`,
-  - fixtures - logic that is executed before running particular tests to increase readability and to avoid repetition,
-  - factories - classes and function to create data that is used in testing, for example API Json inputs,
-  - expects - custom expects that exceeds PW expect capabilities to avoid repetition and to ease troubleshooting process,
-  - api - all api clients that are used for testing
-  - data - files that are used for checking purposes, for example pdf file to verify uploading feature,
-  - components - are shared between multiple page/view objects and is is handful to abstract and encapsulate them to the component objects,
-  - tests - unit/component tests for testing framework functions,
-- tests - API and GUI tests of the tested application
+  - pages: Objects that abstract pages with URLs.
+  - views: If a given page is complicated and different actions provide views that differ from each other, it is good to abstract/encapsulate them into View objects.
+  - models: Interfaces and types used as inputs/outputs in testing, e.g., `AuthUserModel`.
+  - fixtures: Logic executed before running particular tests to increase readability and avoid repetition.
+  - factories: Classes and functions to create data used in testing, e.g., API JSON inputs.
+  - expects: Custom expectations that extend Playwright's `expect` capabilities to avoid repetition and ease the troubleshooting process.
+  - api: All API clients used for testing.
+  - data: Files used for checking purposes, e.g., PDF files to verify the uploading feature.
+  - components: Shared components between multiple page/view objects; it is useful to abstract and encapsulate them into component objects.
+  - tests: Unit/component tests for testing framework functions.
+- tests: API and GUI tests of the tested application.
 
 ## General Info
 
-- If your tests requires some data(data seeding, services fixtures etc.) that has to be created in the SUT(system under test, or some environment under test) before running tests from this repository add link and information here.
+If your tests require data (such as data seeding, service fixtures, etc.) that needs to be created in the SUT (System Under Test) or any environment under test before running tests from this repository, please add the relevant link and information here.
 
 ## Execution on CI
 
-- set all env variables from .env-template
+- set all env variables from the .env-template file
 
 ## Coding Standard
 
+Coding standard proposal:
 [Coding Standard](CODING-STANDARDS.md)
 
 ## Local recommended tools:
@@ -101,7 +102,7 @@ Generated API Clients are under this path: `src/api/api-generated-clients/`
 
 ## Snapshots update for CI(requires Docker)
 
-If tests are locally executed on the different OS than linux it is required to update or generate new snapshots on Linux for the CI execution. The official PW docker image can be used. If your tests that use snapshots have the tag @SNAP you can use following steps:
+If tests are executed locally on an OS other than Linux, it is required to update or generate new snapshots on Linux for CI execution. The official Playwright (PW) Docker image can be used for this purpose. If your tests that use snapshots have the @SNAP tag, you can follow these steps:
 
 ```
 docker run --rm --network host -v $(pwd):/work/ -w /work/ -it mcr.microsoft.com/playwright:v1.46.0-jammy /bin/bash
@@ -116,7 +117,7 @@ Then commit and push the newly created files to the repository. Keep in mind to 
 Create your branch, make your changes, commit them and push it to the remote and start a new PullRequest.
 
 - Use VSC or `git checkout -b name_of_your_branch` or `git switch -c name_of_your_branch`
-- commit your changes(use this commit convention https://www.conventionalcommits.org/en/v1.0.0/)
+- commit your changes(you can follow this commit convention https://www.conventionalcommits.org/en/v1.0.0/)
 - push your changes to remote(`git push -u origin name_of_your_branch`) and open PullRequest,
 - decide with your team about review and merging policy(number of thumbs up, resolving comments, passing tests etc.),
 - Remember: "Honesty in small things is not a small thing" ~Robert C. Martin ;)
