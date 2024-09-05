@@ -1,4 +1,4 @@
-# pw-framework-structure
+# playwright-framework-structure
 
 This is a framework structure based on Playwright and TypeScript that can be reused for creating E2E and API integration automated checks.
 
@@ -9,11 +9,14 @@ This framework includes:
 - Custom fixtures and expectations that can be easily extended.
 - Easy-to-enable debugging of API calls by setting the `DEBUG=axios` environment variable in your .env file.
 - Linter, VSCode, and Husky configurations that have been tested in real projects.
-- An environment variables mechanism.
+- An environment variables mechanism, that can be easily extend to get secrets from vaults etc.
 - A tsconfig.json file with easy-to-use import paths, e.g., `import { buildUserFromEnvVariables } from "@factories/auth-user.factory"`.
 - A solution for unit testing code used in automating checks (making it much easier to use unit tests when developing helper functions, parsers, etc.).
+- If your development process uses feature flags(for example special cookies) you can easily create fixtures that include them.
 - A BasePage class with a waitForPage method that waits for a given anchorElement; this method can be overloaded to wait for other conditions, such as API responses, on specific pages.
 - Setup for creating storageStates with authentication file age checks for local executions.
+
+  ![framework structure](pw_framework.drawio.svg)
 
 # Utilized resources:
 
@@ -39,15 +42,17 @@ This framework includes:
   - data: Files used for checking purposes, e.g., PDF files to verify the uploading feature.
   - components: Shared components between multiple page/view objects; it is useful to abstract and encapsulate them into component objects.
   - tests: Unit/component tests for testing framework functions.
-- tests: API and GUI tests of the tested application.
+- tests:
+
+  - API and UI tests of the tested application.
 
 ## General Info
 
-If your tests require data (such as data seeding, service fixtures, etc.) that needs to be created in the SUT (System Under Test) or any environment under test before running tests from this repository, please add the relevant link and information here.
+If your tests require data (such as data seeding, executing service fixtures, etc.) that needs to be created in the SUT (System Under Test) before running tests from this repository, please add the relevant link and information here.
 
 ## Execution on CI
 
-- set all env variables from the .env-template file
+- set all env variables from the .env-template file and set the env variable `CI=true`.
 
 ## Coding Standard
 
