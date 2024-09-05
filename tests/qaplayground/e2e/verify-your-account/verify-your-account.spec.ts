@@ -1,4 +1,4 @@
-import { VerifyYourAccount } from "@pages/verify-your-account.page";
+import { VerifyYourAccount } from "@pages/qaplayground/verify-your-account.page";
 import { expect, test } from "@playwright/test";
 
 test("Verify Your Account page contains proper message", async ({ page }) => {
