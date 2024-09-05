@@ -1,4 +1,4 @@
-import { ShadowDomPage } from "@pages/shadow-dom.page";
+import { ShadowDomPage } from "@pages/qaplayground/shadow-dom.page";
 import { expect, test } from "@playwright/test";
 
 test("The progress bar is showing progress after clicking boost @SHADOWDOM", async ({

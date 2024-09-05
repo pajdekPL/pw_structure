@@ -1,4 +1,4 @@
-import { IframePage } from "@pages/iframe.page";
+import { IframePage } from "@pages/qaplayground/iframe.page";
 import { expect, test } from "@playwright/test";
 
 test("The main page loads nested frames properly and interaction is possible @IFRAME", async ({

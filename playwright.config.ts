@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 
 dotenv.config({ override: true });
 
-export const USER_STORAGE_STATE_FILE = ".auth/user.json";
+export const ADMIN_STORAGE_STATE_FILE = ".auth/user.json";
 export const BASE_URL = EnvVariables.requireEnv("BASE_URL");
 export const BASE_API_URL = EnvVariables.requireEnv("BASE_API_URL");
 
@@ -16,7 +16,6 @@ const CI_WORKERS = 2;
 const LOCAL_WORKERS = 1;
 
 export default defineConfig({
-  testDir: "./tests/",
   globalSetup: "src/global-setup.ts",
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
@@ -47,9 +46,19 @@ export default defineConfig({
   /* Configure projects for major browsers */
   projects: [
     {
-      name: "chromium",
+      name: "chromium - qaplayground",
+      testDir: "tests/qaplayground/",
       use: {
         ...devices["Desktop Chrome"],
+        baseURL: BASE_URL,
+      },
+    },
+    {
+      name: "chromium - automationintesting",
+      testDir: "tests/automationintesting/",
+      use: {
+        ...devices["Desktop Chrome"],
+        baseURL: BASE_API_URL,
       },
     },
   ],

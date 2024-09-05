@@ -1,4 +1,4 @@
-import { MultiLevelDropdownPage } from "@pages/multi-level-dropdown.page";
+import { MultiLevelDropdownPage } from "@pages/qaplayground/multi-level-dropdown.page";
 import { test } from "@playwright/test";
 
 test("It is possible to navigate thru dropdown menu to settings and go back @DROPDOWN", async ({

@@ -1,5 +1,5 @@
-import { NewPage } from "@pages/new-page.page";
-import { NewTabPage } from "@pages/new-tab.page";
+import { NewPage } from "@pages/qaplayground/new-page.page";
+import { NewTabPage } from "@pages/qaplayground/new-tab.page";
 import { expect, test } from "@playwright/test";
 
 test("The page is properly open in the new page @NEWPAGE", async ({
