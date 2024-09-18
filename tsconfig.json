@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "target": "ES2016",
+    "module": "commonjs",
     "baseUrl": ".",
     "esModuleInterop": true,
     "paths": {
