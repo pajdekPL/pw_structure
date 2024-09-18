@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Locator, Page } from "@playwright/test";
+import { Locator, Page, test } from "@playwright/test";
 
 export abstract class BasePage {
   url = "/";
@@ -33,4 +33,38 @@ export abstract class BasePage {
     await this.page.reload();
     await this.waitForPage();
   }
+}
+
+/**
+ * Decorator function for wrapping methods in a Playwright test.step to increase readability.
+ *
+ * Use it without a step name `@step()`.
+ *
+ * Or with a step name `@step("Search something")`.
+ *
+ * @param stepName - The name of the test step.
+ * @returns A decorator function that can be used to decorate test methods.
+ */
+export function step<This extends object, Args extends [unknown], Return>(
+  stepName?: string,
+) {
+  return function decorator(
+    target: (this: This, ...args: Args) => Promise<Return>,
+    context: ClassMethodDecoratorContext<
+      This,
+      (this: This, ...args: Args) => Promise<Return>
+    >,
+  ) {
+    return function replacementMethod(
+      this: This,
+      ...args: Args
+    ): Promise<void> {
+      const name = `${stepName || (context.name as string)} (${
+        this.constructor.name
+      })`;
+      return test.step(name, async () => {
+        await target.call(this, ...args);
+      });
+    };
+  };
 }

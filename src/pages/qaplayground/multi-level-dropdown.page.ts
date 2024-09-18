@@ -1,5 +1,5 @@
 import { TopBarComponent } from "@components/top-bar.component";
-import { BasePage } from "@pages/base.page";
+import { BasePage, step } from "@pages/base.page";
 import { Locator, Page, expect } from "@playwright/test";
 
 export class MultiLevelDropdownPage extends BasePage {
@@ -32,6 +32,7 @@ export class MultiLevelDropdownPage extends BasePage {
     await this.settingsBackButton.click();
   }
 
+  @step()
   async verifyMenuOptionsAreVisible(items: string[]): Promise<void | never> {
     for (const item of items) {
       await expect(

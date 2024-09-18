@@ -1,5 +1,5 @@
 import { TopBarComponent } from "@components/top-bar.component";
-import { BasePage } from "@pages/base.page";
+import { BasePage, step } from "@pages/base.page";
 import { Locator, Page } from "@playwright/test";
 
 export class MainPage extends BasePage {
@@ -17,6 +17,7 @@ export class MainPage extends BasePage {
     super(page);
   }
 
+  @step("Navigate to Mini Apps")
   async enterMiniAps(): Promise<void> {
     await this.miniAppsLink.click();
     await this.page.waitForURL(this.miniAppsAnchorUrl);
