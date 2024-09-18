@@ -11,3 +11,4 @@ node_modules/
 /tmp
 .auth/
 .env
+.DS_Store

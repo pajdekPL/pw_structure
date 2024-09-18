@@ -1,5 +1,5 @@
 import { TopBarComponent } from "@components/top-bar.component";
-import { BasePage } from "@pages/base.page";
+import { BasePage, step } from "@pages/base.page";
 import { Locator, Page } from "@playwright/test";
 
 export class VerifyYourAccount extends BasePage {
@@ -18,6 +18,7 @@ export class VerifyYourAccount extends BasePage {
     super(page);
   }
 
+  @step()
   async fillAllDigits(value: string): Promise<void> {
     const delayBetweenDigitsMs = 50;
     for (let i = 0; i < this.numOfDigits; i++) {
