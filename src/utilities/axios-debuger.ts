@@ -1,4 +1,7 @@
-/* eslint-disable */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 import axiosDebugLog from "axios-debug-log";
 export function turnOnAxiosDebugger(): void {
   axiosDebugLog({

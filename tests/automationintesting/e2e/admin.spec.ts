@@ -3,7 +3,7 @@ import { AdminPage } from "@pages/automationintesting/admin-panel.page";
 import { expect } from "playwright/test";
 
 test(
-  "Admin sees create booking buttton",
+  "Admin sees create booking button",
   { tag: "@ADMINPAGE" },
   async ({ adminAuthPage }) => {
     const adminPage = new AdminPage(adminAuthPage);
