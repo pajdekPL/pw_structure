@@ -11,7 +11,7 @@ import { AxiosResponse } from "axios";
 import { BASE_API_URL } from "playwright.config";
 
 export const ROOMS_API_URL = new URL("/room/", BASE_API_URL).toString();
-
+// TODO remove check flag and unify responses
 export class RoomsApiClient {
   apiClient: RoomsGeneratedApiClient<unknown>;
 
