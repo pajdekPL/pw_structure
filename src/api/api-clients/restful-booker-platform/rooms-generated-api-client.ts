@@ -10,6 +10,7 @@
  */
 
 export interface Room {
+  [key: string]: any;
   /** @format int32 */
   roomid?: number;
   roomName: string;

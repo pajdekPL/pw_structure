@@ -33,7 +33,7 @@ export class MultiLevelDropdownPage extends BasePage {
   }
 
   @step()
-  async verifyMenuOptionsAreVisible(items: string[]): Promise<void | never> {
+  async verifyMenuOptionsAreVisible(items: string[]): Promise<void> {
     for (const item of items) {
       await expect(
         this.menuContainer.getByRole("link", { name: item }),

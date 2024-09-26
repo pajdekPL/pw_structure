@@ -1,6 +1,6 @@
 {
   "arrowParens": "always",
-  "importOrderParserPlugins": ["typescript", "decorators-legacy"],
+  "importOrderParserPlugins": ["typescript"],
   "bracketSpacing": true,
   "jsxSingleQuote": false,
   "semi": true,

@@ -28,10 +28,14 @@ export class FileOperationsFs implements FileOperations {
 
   readJsonFile(path: string): object | never {
     try {
-      const jsonContent = JSON.parse(fs.readFileSync(path, "utf-8"));
+      const jsonContent = JSON.parse(
+        fs.readFileSync(path, "utf-8"),
+      ) as unknown as object;
       return jsonContent;
     } catch (error) {
-      throw new Error(`It was not possible to parse the file: ${path} to JSON`);
+      throw new Error(
+        `It was not possible to parse the file: ${path} to JSON, error ${String(error)}`,
+      );
     }
   }
 

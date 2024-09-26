@@ -1,3 +1,4 @@
+/* eslint-disable no-empty-pattern */
 import {
   AuthApiClient,
   createAuthApiClient,
@@ -10,26 +11,26 @@ import { buildUserFromEnvVariables } from "@factories/auth-user.factory";
 import { AuthUserModel } from "@models/auth-user.model";
 import { test as base } from "@playwright/test";
 
-type UsersFixtures = {
+interface UsersFixtures {
   roomsApiClient: RoomsApiClient;
   authApiClient: AuthApiClient;
   roomsAuthenticatedApiClient: RoomsApiClient;
-};
+}
 
 export const test = base.extend<UsersFixtures>({
   roomsAuthenticatedApiClient: async ({}, use) => {
     const user = buildUserFromEnvVariables();
     const token = await loginUserAndGetToken(user);
     const roomsApiClient = createRoomsApiClient("", `token=${token}`);
-    use(roomsApiClient);
+    await use(roomsApiClient);
   },
   roomsApiClient: async ({}, use) => {
     const roomsApiClient = createRoomsApiClient();
-    use(roomsApiClient);
+    await use(roomsApiClient);
   },
   authApiClient: async ({}, use) => {
     const authApiClient = createAuthApiClient();
-    use(authApiClient);
+    await use(authApiClient);
   },
 });
 

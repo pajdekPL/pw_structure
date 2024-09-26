@@ -46,19 +46,19 @@ export default defineConfig({
   /* Configure projects for major browsers */
   projects: [
     {
-      name: "chromium - qaplayground",
-      testDir: "tests/qaplayground/",
-      use: {
-        ...devices["Desktop Chrome"],
-        baseURL: BASE_URL,
-      },
-    },
-    {
       name: "chromium - automationintesting",
       testDir: "tests/automationintesting/",
       use: {
         ...devices["Desktop Chrome"],
         baseURL: BASE_API_URL,
+      },
+    },
+    {
+      name: "chromium - qaplayground",
+      testDir: "tests/qaplayground/",
+      use: {
+        ...devices["Desktop Chrome"],
+        baseURL: BASE_URL,
       },
     },
   ],

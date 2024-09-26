@@ -1,27 +1,29 @@
 import { ShadowDomPage } from "@pages/qaplayground/shadow-dom.page";
 import { expect, test } from "@playwright/test";
 
-test("The progress bar is showing progress after clicking boost @SHADOWDOM", async ({
-  page,
-}) => {
-  const valueBeforeBoost = "5";
-  const expectedValueAfterBoost = "95";
-  const boostValueAttribute = "percent";
-  const boostProgressingTimeout = 8000;
-  const shadowDomPage = new ShadowDomPage(page);
+test(
+  "The progress bar is showing progress after clicking boost",
+  { tag: "@SHADOWDOM" },
+  async ({ page }) => {
+    const valueBeforeBoost = "5";
+    const expectedValueAfterBoost = "95";
+    const boostValueAttribute = "percent";
+    const boostProgressingTimeout = 8000;
+    const shadowDomPage = new ShadowDomPage(page);
 
-  await shadowDomPage.goto();
+    await shadowDomPage.goto();
 
-  await expect(shadowDomPage.progressBar).toHaveAttribute(
-    boostValueAttribute,
-    valueBeforeBoost,
-  );
+    await expect(shadowDomPage.progressBar).toHaveAttribute(
+      boostValueAttribute,
+      valueBeforeBoost,
+    );
 
-  await shadowDomPage.boostButton.click();
+    await shadowDomPage.boostButton.click();
 
-  await expect(shadowDomPage.progressBar).toHaveAttribute(
-    boostValueAttribute,
-    expectedValueAfterBoost,
-    { timeout: boostProgressingTimeout },
-  );
-});
+    await expect(shadowDomPage.progressBar).toHaveAttribute(
+      boostValueAttribute,
+      expectedValueAfterBoost,
+      { timeout: boostProgressingTimeout },
+    );
+  },
+);

@@ -2,6 +2,7 @@ import { createAxiosHttpApiClient } from "@api/api-clients/api-helpers";
 import {
   HttpClient,
   Room,
+  Rooms,
   RoomsGeneratedApiClient,
 } from "@api/api-clients/restful-booker-platform/rooms-generated-api-client";
 import { API_STATUSES } from "@api/statuses.api";
@@ -18,33 +19,60 @@ export class RoomsApiClient {
     this.apiClient = new RoomsGeneratedApiClient(this.httpClient);
   }
 
-  async getRooms(params?: object): Promise<AxiosResponse> {
+  async getRooms(
+    check = true,
+    params?: object,
+  ): Promise<AxiosResponse | Rooms> {
     const response = await this.apiClient.getRooms(params);
-    return response;
+    if (!check) {
+      return response;
+    }
+
+    expect(response).toHaveStatusCode(API_STATUSES.SUCCESSFUL_200_STATUS);
+
+    return response.data as unknown as Rooms;
   }
 
-  async getRoom(room_id: number, params?: object): Promise<AxiosResponse> {
+  async getRoom(
+    room_id: number,
+    check = true,
+    params?: object,
+  ): Promise<AxiosResponse | Room> {
     const response = await this.apiClient.id.getRoom(room_id, params);
-    return response;
+    if (!check) {
+      return response;
+    }
+    expect(response).toHaveStatusCode(API_STATUSES.SUCCESSFUL_200_STATUS);
+
+    const data = response.data as unknown as Room;
+    return data;
   }
 
-  async deleteRoom(room_id: number, params?: object): Promise<AxiosResponse> {
+  async deleteRoom(
+    room_id: number,
+    check = true,
+    params?: object,
+  ): Promise<AxiosResponse | void> {
     const response = await this.apiClient.id.deleteRoom(room_id, params);
-    return response;
+    if (!check) {
+      return response;
+    }
+    expect(response).toHaveStatusCode(API_STATUSES.ACCEPTED_202_STATUS);
   }
 
-  async createRoom(data: Room, params?: object): Promise<AxiosResponse> {
+  async createRoom(
+    data: Room,
+    check = true,
+    params?: object,
+  ): Promise<AxiosResponse | Room> {
     const response = await this.apiClient.createRoom(data, params);
-    return response;
-  }
-
-  async createRoomAndVerify(data: Room, params?: object): Promise<number> {
-    const response = await this.createRoom(data, params);
+    if (!check) {
+      return response;
+    }
 
     expect(response).toHaveStatusCode(API_STATUSES.CREATED_201_STATUS);
-
     const roomDetails: Room = response.data;
-    return roomDetails.roomid;
+    return roomDetails;
   }
 }
 

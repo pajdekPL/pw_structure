@@ -2,7 +2,7 @@ import { turnOnAxiosDebugger } from "@utilities/axios-debuger";
 
 export function createAxiosHttpApiClient<T>(
   baseUrl: string,
-  httpClient: new ({}) => T,
+  httpClient: new (config: AxiosConfig) => T,
   token = "",
   cookies = "",
 ): T {
@@ -17,4 +17,10 @@ export function createAxiosHttpApiClient<T>(
     },
     validateStatus: () => true,
   });
+}
+
+interface AxiosConfig {
+  baseURL: string;
+  headers: object;
+  validateStatus: (status: number) => boolean;
 }

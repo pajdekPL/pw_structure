@@ -1,8 +1,0 @@
-package-lock.json
-playwright-report
-allure-results
-test-results
-monocart-report
-html-report
-tmp
-.auth

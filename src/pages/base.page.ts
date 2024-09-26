@@ -10,7 +10,6 @@ export abstract class BasePage {
     this.page = page;
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async goto(wait = true): Promise<void> {
     await this.page.goto(this.url, { waitUntil: "commit" });
     if (wait) {
@@ -45,10 +44,8 @@ export abstract class BasePage {
  * @param stepName - The name of the test step.
  * @returns A decorator function that can be used to decorate test methods.
  */
-export function step<This extends object, Args extends [unknown], Return>(
-  stepName?: string,
-) {
-  return function decorator(
+export function step(stepName?: string) {
+  return function wrapper<This extends object, Args extends unknown[], Return>(
     target: (this: This, ...args: Args) => Promise<Return>,
     context: ClassMethodDecoratorContext<
       This,
@@ -58,12 +55,14 @@ export function step<This extends object, Args extends [unknown], Return>(
     return function replacementMethod(
       this: This,
       ...args: Args
-    ): Promise<void> {
-      const name = `${stepName || (context.name as string)} (${
-        this.constructor.name
-      })`;
+    ): Promise<Return> {
+      const name =
+        stepName ??
+        `${this.constructor.name}.${context.name as string}(${args
+          .map((a) => JSON.stringify(a))
+          .join(",")})`;
       return test.step(name, async () => {
-        await target.call(this, ...args);
+        return await target.call(this, ...args);
       });
     };
   };

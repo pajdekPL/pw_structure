@@ -7,22 +7,22 @@ import { ADMIN_STORAGE_STATE_FILE } from "playwright.config";
 
 const TOKEN_EXPIRATION_TIME = 5 * 60 * 1000;
 
-type UsersFixtures = {
+interface UsersFixtures {
   adminAuthPage: Page;
-};
+}
 export const test = base.extend<UsersFixtures>({
   adminAuthPage: async ({ browser, page }, use) => {
     if (!isAuthFileValid(ADMIN_STORAGE_STATE_FILE, TOKEN_EXPIRATION_TIME)) {
       const adminUser = buildUserFromEnvVariables();
       await authenticateUser(page, adminUser, ADMIN_STORAGE_STATE_FILE);
     } else {
-      page.context().close();
+      await page.context().close();
     }
     const adminContext = await browser.newContext({
       storageState: ADMIN_STORAGE_STATE_FILE,
     });
     const adminPage = await adminContext.newPage();
-    use(adminPage);
+    await use(adminPage);
   },
 });
 
