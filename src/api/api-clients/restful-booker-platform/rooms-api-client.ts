@@ -49,13 +49,11 @@ export class RoomsApiClient {
     return response;
   }
 
-  async deleteRoom(
-    room_id: number,
-    params?: object,
-  ): Promise<AxiosResponse | void> {
+  async deleteRoom(room_id: number, params?: object): Promise<void> {
     const response = await this.deleteRoomRaw(room_id, params);
     expect(response).toHaveStatusCode(API_STATUSES.ACCEPTED_202_STATUS);
   }
+
   async createRoomRaw(data: Room, params?: object): Promise<AxiosResponse> {
     const response = await this.apiClient.createRoom(data, params);
     return response;
