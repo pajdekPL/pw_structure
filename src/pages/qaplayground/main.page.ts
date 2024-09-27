@@ -17,7 +17,7 @@ export class MainPage extends BasePage {
     super(page);
   }
 
-  @step("Navigate to Mini Apps")
+  @step("Enter Mini Apps")
   async enterMiniAps(): Promise<void> {
     await this.miniAppsLink.click();
     await this.page.waitForURL(this.miniAppsAnchorUrl);

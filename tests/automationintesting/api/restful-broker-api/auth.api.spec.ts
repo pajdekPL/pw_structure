@@ -4,7 +4,7 @@ import { buildUserFromEnvVariables } from "@factories/auth-user.factory";
 import { test } from "@fixtures/api.fixture";
 import { extractTokenFromResponseHeaders } from "@utilities/helpers";
 
-test.describe("Restful broker /login api tests @API", () => {
+test.describe("Restful broker /login api tests", { tag: "@API" }, () => {
   test("Nonexisting user can't get access token", async ({ authApiClient }) => {
     const nonExistingUser = {
       username: "fakeUser",

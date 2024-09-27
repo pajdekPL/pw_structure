@@ -1,8 +1,9 @@
 import { extractTokenFromResponseHeaders, omit } from "@utilities/helpers";
 import { RawAxiosResponseHeaders } from "axios";
+import { describe, expect, test } from "vitest";
 
 describe("Test helpers", () => {
-  test("omit should remove given key from the object", async () => {
+  test("omit should remove given key from the object", () => {
     const inputObject = {
       id: "SomeId",
       uuid: "AutomaticallyGeneratedUUID",

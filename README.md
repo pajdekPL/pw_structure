@@ -11,7 +11,7 @@ This framework includes:
 - Linter, VSCode, and Husky configurations that have been tested in real projects.
 - An environment variables mechanism, that can be easily extend to get secrets from vaults etc.
 - A tsconfig.json file with easy-to-use import paths, e.g., `import { buildUserFromEnvVariables } from "@factories/auth-user.factory"`.
-- A solution for unit testing code used in automating checks (making it much easier to use unit tests when developing helper functions, parsers, etc.).
+- A solution for unit testing code(vitest) used in automating checks (making it much easier to use unit tests when developing helper functions, parsers, etc.).
 - If your development process uses feature flags(for example special cookies) you can easily create fixtures that include them.
 - A BasePage class with a waitForPage method that waits for a given anchorElement; this method can be overloaded to wait for other conditions, such as API responses, on specific pages.
 - Setup for creating storageStates with authentication file age checks for local executions.
@@ -110,7 +110,7 @@ Generated API Clients are under this path: `src/api/api-generated-clients/`
 If tests are executed locally on an OS other than Linux, it is required to update or generate new snapshots on Linux for CI execution. The official Playwright (PW) Docker image can be used for this purpose. If your tests that use snapshots have the @SNAP tag, you can follow these steps:
 
 ```
-docker run --rm --network host -v $(pwd):/work/ -w /work/ -it mcr.microsoft.com/playwright:v1.46.0-jammy /bin/bash
+docker run --rm --network host -v $(pwd):/work/ -w /work/ -it mcr.microsoft.com/playwright:v1.47.1-jammy /bin/bash
 npm install
 npx playwright test --grep @SNAP --update-snapshots
 ```
