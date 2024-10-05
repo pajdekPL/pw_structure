@@ -3,6 +3,9 @@
   "type": "module",
   "version": "1.0.0",
   "description": "Awesome testing framework based on PW and TS",
+  "engines": {
+    "node": "22"
+  },
   "dependencies": {
     "@eslint/markdown": "^6.1.0",
     "axios-debug-log": "^1.0.0",
