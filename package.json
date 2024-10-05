@@ -10,6 +10,9 @@
     "typescript": "5.5",
     "vite-tsconfig-paths": "^5.0.1"
   },
+  "engines": {
+    "node": "22"
+  },
   "devDependencies": {
     "@eslint/eslintrc": "^3.1.0",
     "@eslint/js": "^9.11.1",
