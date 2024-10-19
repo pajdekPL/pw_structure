@@ -23,6 +23,7 @@ export const test = base.extend<UsersFixtures>({
     });
     const adminPage = await adminContext.newPage();
     await use(adminPage);
+    await adminPage.close();
   },
 });
 
