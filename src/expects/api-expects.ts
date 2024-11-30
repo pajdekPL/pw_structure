@@ -4,7 +4,10 @@ import { AxiosResponse } from "axios";
 export { test } from "@playwright/test";
 
 export const expect = baseExpect.extend({
-  toHaveStatusCode(response: AxiosResponse, status: number) {
+  toHaveStatusCode(
+    response: AxiosResponse,
+    status: number,
+  ): { pass: boolean; message: () => string } {
     let pass: boolean;
     let matcherResult: string;
     try {

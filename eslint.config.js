@@ -1,30 +1,30 @@
-import eslint from "@eslint/js";
+import { default as eslint } from "@eslint/js";
+import eslintConfigPrettier from "eslint-config-prettier";
 import playwright from "eslint-plugin-playwright";
-import globals from "globals";
 import tseslint from "typescript-eslint";
-// import tseslint from "typescript-eslint";
 
-export default [
-  { files: ["**/*.{js,mjs,cjs,ts}"] },
-  {
-    languageOptions: {
-      globals: globals.node,
-      parserOptions: {
-        // projectService: true,
-        projectService: {
-          allowDefaultProject: ["*.js", "*.mjs"],
-        },
-        tsconfigRootDir: import.meta.dirname,
-      },
-    },
-  },
-
-  // pluginJs.configs.recommended,
+export default tseslint.config(
   eslint.configs.recommended,
   ...tseslint.configs.recommended,
   ...tseslint.configs.recommendedTypeChecked,
   ...tseslint.configs.stylisticTypeChecked,
-
+  ...tseslint.configs.strict,
+  eslintConfigPrettier,
+  {
+    plugins: {
+      "@typescript-eslint": tseslint.plugin,
+    },
+    languageOptions: {
+      parser: tseslint.parser,
+      parserOptions: {
+        project: true,
+        tsconfigRootDir: import.meta.dirname,
+      },
+    },
+    rules: {
+      "@typescript-eslint/explicit-function-return-type": "error",
+    },
+  },
   {
     ...playwright.configs["flat/recommended"],
     files: ["tests/**"],
@@ -32,4 +32,20 @@ export default [
       "playwright/expect-expect": 0,
     },
   },
-];
+  {
+    // disable type-aware linting on JS files
+    files: ["**/*.js"],
+    ...tseslint.configs.disableTypeChecked,
+  },
+  {
+    ignores: [
+      "node_modules",
+      "test-results",
+      "playwright-report",
+      "blob-report",
+      "playwright/.cache",
+      ".auth",
+      ".env",
+    ],
+  },
+);

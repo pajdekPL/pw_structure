@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-extraneous-class */
+// TODO remove unnecessary class
 export class EnvVariables {
   static isEnvSet(envName: string): boolean {
     if (process.env[envName]) {

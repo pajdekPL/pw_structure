@@ -11,14 +11,14 @@ test.describe("Restful broker /room api tests", { tag: "@API" }, () => {
     const data = await roomsAuthenticatedApiClient.createRoom(
       createDoubleRoomData(),
     );
-    roomId = data.roomid!;
+    roomId = data.roomid;
   });
 
   test("Unauthorized user can get all rooms", async ({ roomsApiClient }) => {
     const rooms = await roomsApiClient.getRooms();
 
     expect(rooms.rooms).toBeDefined();
-    expect(rooms.rooms!.length).toBeGreaterThanOrEqual(1);
+    expect(rooms.rooms?.length).toBeGreaterThanOrEqual(1);
   });
 
   test("Unauthorized user can get the room details", async ({
@@ -44,7 +44,7 @@ test.describe("Restful broker /room api tests", { tag: "@API" }, () => {
     const rooms = await roomsAuthenticatedApiClient.getRooms();
 
     expect(rooms.rooms).toBeDefined();
-    expect(rooms.rooms!.length).toBeGreaterThanOrEqual(1);
+    expect(rooms.rooms?.length).toBeGreaterThanOrEqual(1);
   });
 
   test(
