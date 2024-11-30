@@ -58,12 +58,12 @@ export class RoomsApiClient {
     const response = await this.apiClient.createRoom(data, params);
     return response;
   }
-  async createRoom(data: Room, params?: object): Promise<Room> {
+  async createRoom(data: Room, params?: object): Promise<Required<Room>> {
     const response = await this.createRoomRaw(data, params);
 
     expect(response).toHaveStatusCode(API_STATUSES.CREATED_201_STATUS);
 
-    const roomDetails = response.data as Room;
+    const roomDetails = response.data as Required<Room>;
     return roomDetails;
   }
 }
