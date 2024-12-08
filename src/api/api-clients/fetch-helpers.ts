@@ -20,28 +20,6 @@ export interface FetchOptions<T = unknown> {
   params?: Record<string, string | number | boolean | undefined>;
 }
 
-export function createPlaywrightHttpApiClient<T>(
-  request: APIRequestContext,
-  baseUrl: string,
-  httpClient: new (config: FetchConfig, request: APIRequestContext) => T,
-  token = "",
-  cookies = "",
-): T {
-  return new httpClient(
-    {
-      baseURL: baseUrl,
-      headers: {
-        "X-api-version": "1.0",
-        "content-type": "application/json;charset=UTF-8",
-        Cookie: cookies,
-        Authorization: token ? `Bearer ${token}` : "",
-      },
-      validateStatus: () => true,
-    },
-    request,
-  );
-}
-
 export async function fetchWithConfig<T>(
   request: APIRequestContext,
   url: string,
