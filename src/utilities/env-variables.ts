@@ -6,9 +6,9 @@ export const EnvVariables = {
     return false;
   },
 
-  requireEnv(envName: string): string | never {
+  requireEnv(envName: string): string {
     if (this.isEnvSet(envName)) {
-      return process.env[envName];
+      return process.env[envName] as unknown as string;
     }
     throw new Error(`Required env variable ${envName} is not set!`);
   },

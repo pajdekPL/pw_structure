@@ -8,7 +8,7 @@ import {
 } from "@api/api-clients/restful-booker-platform/rooms-api-client";
 import { buildUserFromEnvVariables } from "@factories/auth-user.factory";
 import { AuthUserModel } from "@models/auth-user.model";
-import { test as base } from "@playwright/test";
+import { test as base, APIRequestContext } from "@playwright/test";
 
 interface UsersFixtures {
   roomsApiClient: RoomsApiClient;
@@ -17,23 +17,28 @@ interface UsersFixtures {
 }
 
 export const test = base.extend<UsersFixtures>({
-  roomsAuthenticatedApiClient: async ({}, use) => {
+  roomsAuthenticatedApiClient: async ({ request }, use) => {
     const user = buildUserFromEnvVariables();
-    const token = await loginUserAndGetToken(user);
-    const roomsApiClient = createRoomsApiClient("", `token=${token}`);
+    const token = await loginUserAndGetToken(request, user);
+    const cookies = `token=${token}`;
+    const roomsApiClient = createRoomsApiClient(request, cookies, "");
     await use(roomsApiClient);
   },
-  roomsApiClient: async ({}, use) => {
-    const roomsApiClient = createRoomsApiClient();
+  roomsApiClient: async ({ request }, use) => {
+    const roomsApiClient = createRoomsApiClient(request);
     await use(roomsApiClient);
   },
-  authApiClient: async ({}, use) => {
-    const authApiClient = createAuthApiClient();
+  authApiClient: async ({ request }, use) => {
+    const authApiClient = createAuthApiClient(request);
     await use(authApiClient);
   },
 });
 
-async function loginUserAndGetToken(user: AuthUserModel): Promise<string> {
-  const authApiClient = createAuthApiClient();
-  return authApiClient.loginAndReturnToken(user);
+async function loginUserAndGetToken(
+  request: APIRequestContext,
+  user: AuthUserModel,
+): Promise<string> {
+  const authApiClient = createAuthApiClient(request);
+  const token = await authApiClient.loginAndReturnToken(user);
+  return token.replace(/^token=/, ""); // Remove 'token=' prefix if present
 }

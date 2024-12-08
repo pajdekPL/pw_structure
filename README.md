@@ -7,7 +7,7 @@ This framework includes:
 - A production-ready project structure.
 - Implementation of the Page Object Model (POM).
 - Custom fixtures and expectations that can be easily extended.
-- Easy-to-enable debugging of API calls by setting the `DEBUG=axios` environment variable in your .env file.
+- Type-safe API clients using OpenAPI-generated types and Playwright's built-in request functionality.
 - Linter, VSCode, and Husky configurations that have been tested in real projects.
 - An environment variables mechanism, that can be easily extend to get secrets from vaults etc.
 - A tsconfig.json file with easy-to-use import paths, e.g., `import { buildUserFromEnvVariables } from "@factories/auth-user.factory"`.
@@ -98,12 +98,22 @@ npx playwright test --grep-invert "@SMOKE"
 
 ## Updating API definitions from Swagger
 
-Generated API Clients are under this path: `src/api/api-generated-clients/`
+Generated API type definitions are under this path: `src/api/api-clients/restful-booker-platform/`
 
-- download the newest API definition from Swagger for the chosen service
-- `npx swagger-typescript-api --disable-throw-on-error --axios --single-http-client --extract-request-params --path {PATH_TO_JSON_FILE_WITH_API_DEFINITION} --api-class-name AppNameGeneratedApiClient --name appName-generated-api-client`
-- update the proper generated-api-client file `src/api/api-generated-clients/{APP}-api-client.ts` with the newly created one
-- verify if tests or the classes that uses the generated client doesn't require any updates
+1. Download the newest API definition from Swagger for the chosen service (e.g., `room.json`)
+2. Generate TypeScript definitions:
+
+```bash
+npx openapi-typescript room.json -o room.d.ts
+```
+
+3. Move the generated `.d.ts` file to the appropriate directory under `src/api/api-clients/restful-booker-platform/`
+4. Update the API client to use the generated types:
+
+```typescript
+import type { components } from "./room";
+export type Room = components["schemas"]["Room"];
+```
 
 ## Snapshots update for CI(requires Docker)
 

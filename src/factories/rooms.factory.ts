@@ -1,4 +1,4 @@
-import { Room } from "@api/api-clients/restful-booker-platform/rooms-generated-api-client";
+import { Room } from "@api/api-clients/restful-booker-platform/rooms-api-client";
 import { faker } from "@faker-js/faker";
 
 export function createDoubleRoomData(): Room {

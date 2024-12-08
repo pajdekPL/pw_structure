@@ -1,45 +1,29 @@
-import { RawAxiosResponseHeaders } from "axios";
-
 export function sleep(sleepTimeMs: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, sleepTimeMs));
 }
 
-export function omit(key: string, obj: object): object {
+export function omit<T extends object, K extends keyof T>(
+  key: K,
+  obj: T,
+): Omit<T, K> {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { [key]: _, ...rest } = obj;
   return rest;
 }
 
+export interface ResponseHeaders {
+  "set-cookie"?: string | string[];
+  [key: string]: string | string[] | undefined;
+}
+
 export function extractTokenFromResponseHeaders(
-  headers: RawAxiosResponseHeaders,
+  headers: ResponseHeaders,
 ): string {
-  let token = "";
-  try {
-    let tokenString = "";
-    if (headers["set-cookie"]?.[0]) {
-      tokenString = headers["set-cookie"][0].split(";")[0];
-    } else {
-      throw new TypeError(
-        `It was not possible to parse token from the given response headers: ${JSON.stringify(
-          headers,
-        )}`,
-      );
-    }
-    tokenString = tokenString.split(";")[0];
-    token = tokenString.slice(tokenString.indexOf("=") + 1);
-  } catch (error) {
-    throw new TypeError(
-      `It was not possible to parse token from the given response headers: ${JSON.stringify(
-        headers,
-      )}, error: ${String(error)}`,
-    );
-  }
+  const token = headers["set-cookie"];
   if (!token) {
-    throw new TypeError(
-      `It was not possible to parse token from the given response headers: ${JSON.stringify(
-        headers,
-      )}`,
+    throw new Error(
+      `Token not found in response headers: ${JSON.stringify(headers)}`,
     );
   }
-  return token;
+  return typeof token === "string" ? token : token[0];
 }
