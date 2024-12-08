@@ -1,12 +1,15 @@
-import { APIRequestContext } from "@playwright/test";
 import {
   FetchConfig,
   FetchOptions,
   FetchResponse,
   fetchWithConfig,
-} from "./fetch-helpers";
+} from "@api/api-clients/fetch-helpers";
+import { APIRequestContext } from "@playwright/test";
 
-export type RequestParams<TData = unknown> = Omit<FetchOptions<TData>, "data"> & {
+export type RequestParams<TData = unknown> = Omit<
+  FetchOptions<TData>,
+  "data"
+> & {
   data?: TData;
 };
 

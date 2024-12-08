@@ -62,10 +62,13 @@ export class RoomsApiClient extends BaseApiClient {
   }
 
   async updateRoomRaw(id: number, data: Room): Promise<FetchResponse<Room>> {
-    return this.makeRequest<Room, Room>(new URL(`${id}`, this.basePath).toString(), {
-      method: "PUT",
-      data,
-    });
+    return this.makeRequest<Room, Room>(
+      new URL(`${id}`, this.basePath).toString(),
+      {
+        method: "PUT",
+        data,
+      },
+    );
   }
 
   async updateRoom(id: number, data: Room): Promise<Room> {

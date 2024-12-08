@@ -1,10 +1,10 @@
 import { BaseApiClient } from "@api/api-clients/base-api-client";
 import { FetchConfig, FetchResponse } from "@api/api-clients/fetch-helpers";
+import type { components } from "@api/api-clients/restful-booker-platform/auth";
 import { API_STATUSES } from "@api/statuses.api";
 import { expect } from "@expects/api-expects";
 import { APIRequestContext } from "@playwright/test";
 import { BASE_API_URL } from "playwright.config";
-import type { components } from "./auth";
 
 export const AUTH_API_URL = new URL("/auth/", BASE_API_URL).toString();
 
