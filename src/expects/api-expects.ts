@@ -1,11 +1,11 @@
 import { expect as baseExpect } from "@playwright/test";
-import { AxiosResponse } from "axios";
+import { FetchResponse } from "@api/api-clients/fetch-helpers";
 
 export { test } from "@playwright/test";
 
 export const expect = baseExpect.extend({
   toHaveStatusCode(
-    response: AxiosResponse,
+    response: FetchResponse,
     status: number,
   ): { pass: boolean; message: () => string } {
     let pass: boolean;
@@ -15,14 +15,10 @@ export const expect = baseExpect.extend({
       pass = true;
       matcherResult = "Passed";
     } catch (error) {
-      matcherResult = `${String(error)}, statusText: ${JSON.stringify(
-        response.statusText,
-      )}  method: ${response.config.method}
-      full_response: ${JSON.stringify(response.data)} url: ${
-        response.config.url
-      } data: ${response.config.data} headers: ${JSON.stringify(
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-        response.request._header,
+      matcherResult = `${String(error)}, statusText: ${
+        response.statusText
+      } response data: ${JSON.stringify(response.data)} headers: ${JSON.stringify(
+        response.headers,
       )}`;
       pass = false;
     }

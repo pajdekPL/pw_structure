@@ -1,4 +1,4 @@
-import { Room } from "@api/api-clients/restful-booker-platform/rooms-generated-api-client";
+import { Room } from "@api/api-clients/restful-booker-platform/rooms-api-client";
 import { API_STATUSES } from "@api/statuses.api";
 import { expect } from "@expects/api-expects";
 import { createDoubleRoomData } from "@factories/rooms.factory";
@@ -11,6 +11,9 @@ test.describe("Restful broker /room api tests", { tag: "@API" }, () => {
     const data = await roomsAuthenticatedApiClient.createRoom(
       createDoubleRoomData(),
     );
+    if (!data.roomid) {
+      throw new Error("Room id is not defined");
+    }
     roomId = data.roomid;
   });
 
@@ -29,7 +32,7 @@ test.describe("Restful broker /room api tests", { tag: "@API" }, () => {
     expect(roomData.roomPrice).toBeDefined();
   });
 
-  test("Unauthorized user can't delete  a room", async ({ roomsApiClient }) => {
+  test("Unauthorized user can't delete a room", async ({ roomsApiClient }) => {
     await test.step("Unauthorized user tries to delete the room", async () => {
       const getRoomsResponse = await roomsApiClient.deleteRoomRaw(roomId);
       expect(getRoomsResponse).toHaveStatusCode(
@@ -82,7 +85,7 @@ test.describe("Restful broker /room api tests", { tag: "@API" }, () => {
       API_STATUSES.CREATED_201_STATUS,
     );
 
-    const data = createRoomResponse.data as Room;
-    expect(data).toMatchObject(roomData);
+    const data = createRoomResponse.data;
+    expect(data).toMatchObject({ ...roomData });
   });
 });

@@ -11,7 +11,7 @@ test.describe("Restful broker /login api tests", { tag: "@API" }, () => {
       password: "fakePassword",
     };
 
-    const response = await authApiClient.login(nonExistingUser);
+    const response = await authApiClient.loginRaw(nonExistingUser);
 
     expect(response).toHaveStatusCode(API_STATUSES.ACCESS_DENIED_403_STATUS);
   });
