@@ -85,7 +85,7 @@ export class RoomsApiClient extends BaseApiClient {
 
   async deleteRoom(id: number): Promise<void> {
     const response = await this.deleteRoomRaw(id);
-    expect(response).toHaveStatusCode(API_STATUSES.SUCCESSFUL_200_STATUS);
+    expect(response).toHaveStatusCode(API_STATUSES.ACCEPTED_202_STATUS);
   }
 }
 
